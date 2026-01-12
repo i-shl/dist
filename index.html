@@ -17,7 +17,7 @@
     document.head.appendChild(viewport);
   </script>
   <title>bq-vue-h5</title>
-  <script type="module" crossorigin src="/assets/js/index-DgoYjNQi.js"></script>
+  <script type="module" crossorigin src="/assets/js/index-CkGxQbP_.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/index-DsJXVA2U.css">
 </head>
 
@@ -125,29 +125,14 @@
         console.log('window.webUni 不存在（这是正常的，如果使用的是官方 uni.webview.js）');
       }
       
-      // 检查平台特定的 SDK
-      console.log('\n【5. 检查平台特定的 SDK】');
-      console.log('window.wx 是否存在:', typeof window.wx !== 'undefined');
-      if (window.wx) {
-        console.log('wx.miniProgram 是否存在:', typeof window.wx.miniProgram !== 'undefined');
-        console.log('wx.miniProgram.postMessage 是否存在:', typeof window.wx?.miniProgram?.postMessage !== 'undefined');
-        console.log('wx.miniProgram.postMessage 是否为函数:', typeof window.wx?.miniProgram?.postMessage === 'function');
-      }
-      console.log('window.tt 是否存在:', typeof window.tt !== 'undefined');
-      if (window.tt) {
-        console.log('tt.miniProgram 是否存在:', typeof window.tt.miniProgram !== 'undefined');
-        console.log('tt.miniProgram.postMessage 是否存在:', typeof window.tt?.miniProgram?.postMessage !== 'undefined');
-        console.log('tt.miniProgram.postMessage 是否为函数:', typeof window.tt?.miniProgram?.postMessage === 'function');
-      }
-      
       // 检查 UniAppJSBridgeReady 事件
-      console.log('\n【6. 检查 UniAppJSBridgeReady 事件】');
+      console.log('\n【5. 检查 UniAppJSBridgeReady 事件】');
       console.log('window.UniAppJSBridge 是否存在:', typeof window.UniAppJSBridge !== 'undefined');
       console.log('window.UniAppJSBridge 的值:', window.UniAppJSBridge);
       
       // 监听 UniAppJSBridgeReady 事件
       document.addEventListener('UniAppJSBridgeReady', function() {
-        console.log('\n【7. UniAppJSBridgeReady 事件已触发】');
+        console.log('\n【6. UniAppJSBridgeReady 事件已触发】');
         console.log('再次检查 window.uni:');
         console.log('window.uni:', window.uni);
         console.log('uni.postMessage:', window.uni?.postMessage);
