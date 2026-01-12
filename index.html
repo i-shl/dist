@@ -17,13 +17,13 @@
     document.head.appendChild(viewport);
   </script>
   <title>bq-vue-h5</title>
-  <script type="module" crossorigin src="/assets/js/index-D-U9v2MJ.js"></script>
+  <script type="module" crossorigin src="/assets/js/index-1sJB7FXH.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/index-DsJXVA2U.css">
 </head>
 
 <body>
 
-  <div id="app"></div>
+  <div id="app"></div>
 </body>
 <!-- 引入uni.webview.js -->
 
@@ -45,6 +45,10 @@
     document.write('<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"><\/script>');
   } else if (/toutiaomicroapp/i.test(userAgent)) {
     // 头条小程序 JS-SDK 如果不需要兼容头条小程序，则无需引用此 JS 文件。
+    document.write(
+      '<script type="text/javascript" src="https://lf1-cdn-tos.bytegoofy.com/goofy/developer/jssdk/jssdk-1.2.0.js"><\/script>');
+  } else if (/Lark|Feishu/i.test(userAgent)) {
+    // 飞书小程序 JS-SDK
     document.write(
       '<script type="text/javascript" src="https://lf1-cdn-tos.bytegoofy.com/goofy/developer/jssdk/jssdk-1.2.0.js"><\/script>');
   } else if (/swan/i.test(userAgent)) {
