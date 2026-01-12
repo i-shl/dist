@@ -17,7 +17,7 @@
     document.head.appendChild(viewport);
   </script>
   <title>bq-vue-h5</title>
-  <script type="module" crossorigin src="/assets/js/index-BGfzSH__.js"></script>
+  <script type="module" crossorigin src="/assets/js/index-CkGxQbP_.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/index-DsJXVA2U.css">
 </head>
 
@@ -25,7 +25,11 @@
 
   <div id="app"></div>
 </body>
-<!-- 引入uni.webview.js（已修改为使用 webUni 避免冲突） -->
+<!-- 引入uni.webview.js -->
+
+<!-- 处理 uni 对象冲突（非常重要！） -->
+
+<!-- 初始化uni变量 -->
 <script type="text/javascript">
   var userAgent = navigator.userAgent;
   if (userAgent.indexOf('AlipayClient') > -1) {
@@ -59,5 +63,94 @@
 </script>
 <!-- uni 的 SDK -->
 <script type="text/javascript" src="/static/uni.webview.1.5.6.js" ></script>
+
+<!-- 检查 uni 对象冲突情况 -->
+<script type="text/javascript">
+  (function() {
+    console.log('========== 开始检查 uni 对象冲突情况 ==========');
+    
+    // 延迟检查，确保 uni.webview.js 已加载
+    setTimeout(function() {
+      console.log('\n【1. 检查 window.uni 对象】');
+      console.log('window.uni 是否存在:', typeof window.uni !== 'undefined');
+      
+      if (typeof window.uni !== 'undefined') {
+        console.log('window.uni 的值:', window.uni);
+        console.log('window.uni 的类型:', typeof window.uni);
+        console.log('window.uni 是否为对象:', typeof window.uni === 'object');
+        
+        // 检查 uni 对象的属性
+        console.log('\n【2. 检查 window.uni 对象的属性】');
+        console.log('uni.postMessage 是否存在:', typeof window.uni.postMessage !== 'undefined');
+        console.log('uni.postMessage 的类型:', typeof window.uni.postMessage);
+        console.log('uni.postMessage 是否为函数:', typeof window.uni.postMessage === 'function');
+        
+        console.log('uni.navigateTo 是否存在:', typeof window.uni.navigateTo !== 'undefined');
+        console.log('uni.navigateTo 的类型:', typeof window.uni.navigateTo);
+        console.log('uni.navigateTo 是否为函数:', typeof window.uni.navigateTo === 'function');
+        
+        console.log('uni.webView 是否存在:', typeof window.uni.webView !== 'undefined');
+        console.log('uni.webView 的值:', window.uni.webView);
+        
+        // 列出所有属性
+        console.log('\n【3. window.uni 对象的所有属性】');
+        var uniKeys = Object.keys(window.uni || {});
+        console.log('uni 对象的属性列表:', uniKeys);
+        
+        // 检查是否有 postMessage 方法
+        if (typeof window.uni.postMessage === 'function') {
+          console.log('✅ uni.postMessage 是一个函数，可以调用');
+          try {
+            // 尝试调用，但不实际发送消息
+            console.log('uni.postMessage 函数签名:', window.uni.postMessage.toString().substring(0, 200));
+          } catch(e) {
+            console.warn('无法获取 uni.postMessage 的函数签名:', e);
+          }
+        } else {
+          console.warn('❌ uni.postMessage 不是一个函数或不存在');
+          console.warn('这可能是 uni 对象冲突导致的！');
+        }
+      } else {
+        console.warn('❌ window.uni 不存在！uni.webview.js 可能没有正确加载');
+      }
+      
+      // 检查 webUni 对象
+      console.log('\n【4. 检查 window.webUni 对象】');
+      console.log('window.webUni 是否存在:', typeof window.webUni !== 'undefined');
+      if (typeof window.webUni !== 'undefined') {
+        console.log('window.webUni 的值:', window.webUni);
+        console.log('webUni.postMessage 是否存在:', typeof window.webUni.postMessage !== 'undefined');
+        console.log('webUni.postMessage 是否为函数:', typeof window.webUni.postMessage === 'function');
+      } else {
+        console.log('window.webUni 不存在（这是正常的，如果使用的是官方 uni.webview.js）');
+      }
+      
+      // 检查 UniAppJSBridgeReady 事件
+      console.log('\n【5. 检查 UniAppJSBridgeReady 事件】');
+      console.log('window.UniAppJSBridge 是否存在:', typeof window.UniAppJSBridge !== 'undefined');
+      console.log('window.UniAppJSBridge 的值:', window.UniAppJSBridge);
+      
+      // 监听 UniAppJSBridgeReady 事件
+      document.addEventListener('UniAppJSBridgeReady', function() {
+        console.log('\n【6. UniAppJSBridgeReady 事件已触发】');
+        console.log('再次检查 window.uni:');
+        console.log('window.uni:', window.uni);
+        console.log('uni.postMessage:', window.uni?.postMessage);
+        console.log('uni.postMessage 是否为函数:', typeof window.uni?.postMessage === 'function');
+        
+        if (window.uni && typeof window.uni.postMessage === 'function') {
+          console.log('✅ 事件触发后，uni.postMessage 可用');
+        } else {
+          console.warn('❌ 事件触发后，uni.postMessage 仍不可用');
+          console.warn('这可能是 uni 对象冲突导致的！');
+        }
+      }, { once: true });
+      
+      console.log('\n========== 检查完成 ==========');
+      console.log('请查看上面的输出，确认是否存在冲突');
+      console.log('如果 uni.postMessage 不是函数，说明存在冲突，需要使用 webUni 版本');
+    }, 100);
+  })();
+</script>
 
 </html>
